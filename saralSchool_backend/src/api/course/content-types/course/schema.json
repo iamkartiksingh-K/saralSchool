@@ -1,0 +1,79 @@
+{
+  "kind": "collectionType",
+  "collectionName": "courses",
+  "info": {
+    "singularName": "course",
+    "pluralName": "courses",
+    "displayName": "Course",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": false
+    },
+    "rating": {
+      "type": "float",
+      "default": 0
+    },
+    "price": {
+      "type": "float",
+      "default": 0
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "isLive": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "instructor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "students": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "courses"
+    },
+    "lectures": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::lecture.lecture",
+      "mappedBy": "course"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Web Development",
+        "Business",
+        "Design",
+        "Marketing",
+        "Photography & Video ",
+        "Health & Fitness ",
+        "Music ",
+        "Teaching & Academics",
+        "Computer Science",
+        "Android Development",
+        "Data Science"
+      ],
+      "required": false
+    }
+  }
+}

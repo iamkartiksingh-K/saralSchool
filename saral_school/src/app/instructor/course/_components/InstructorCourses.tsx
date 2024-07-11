@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
+import { Button } from "../../../../components/ui/button";
+import { Separator } from "../../../../components/ui/separator";
 import { FaPlus } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import {
@@ -32,6 +32,7 @@ import { useContext } from "react";
 import { UserDataContext } from "@/contexts/userDataContext";
 import { useState, useEffect } from "react";
 import { courseType, defaultCourse } from "@/lib/types";
+import CourseCard from "./CourseCard";
 
 const formSchema = z.object({
 	name: z.string().min(2).max(50),
@@ -62,7 +63,7 @@ export default function InstructorCourse() {
 			}
 		}
 		init();
-	}, []);
+	}, [router]);
 	async function onSubmit(values: z.infer<typeof formSchema>) {
 		console.log(values);
 		try {
@@ -80,6 +81,7 @@ export default function InstructorCourse() {
 			console.log(error);
 		}
 	}
+	const allCourses = courses.map((course) => <CourseCard course={course} />);
 	return (
 		<div className='w-full'>
 			<div className='w-full flex justify-between'>
@@ -145,6 +147,7 @@ export default function InstructorCourse() {
 				</Dialog>
 			</div>
 			<Separator className='my-3' />
+			<div className='flex space-x-3'>{allCourses}</div>
 		</div>
 	);
 }

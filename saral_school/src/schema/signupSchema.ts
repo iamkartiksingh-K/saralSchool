@@ -12,5 +12,6 @@ const signupSchema = z.object({
 	fullName: z
 		.string()
 		.min(3, { message: "Name should be atleas 3 characters long" }),
+	isInstructor: z.boolean(),
 });
 export default signupSchema;

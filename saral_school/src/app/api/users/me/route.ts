@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
 			user_id: response?.data.id,
 			email: response?.data.email,
 			username: response?.data.username,
+			isInstructor: response?.data.isInstructor,
 			bio: response?.data.bio,
 			headline: response?.data.headline,
 			avatar: getImageObj(response?.data.avatar, "thumbnail"),

@@ -1,7 +1,7 @@
 "use client";
-import SideNavbar from "@/components/SideNavbar";
+import SideNavbar from "@/app/instructor/course/_components/SideNavbar";
 import EditProfile from "@/components/EditProfile";
-import InstructorCourse from "@/components/InstructorCourses";
+import InstructorCourse from "@/app/instructor/course/_components/InstructorCourses";
 import { useState } from "react";
 
 export default function InstructorDashboard() {

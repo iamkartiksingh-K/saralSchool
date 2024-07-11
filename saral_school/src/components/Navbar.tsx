@@ -58,7 +58,7 @@ export default function Navbar() {
 						<Logo />
 					</div>
 					<div className='flex items-center'>
-						{user?.user_id && (
+						{user?.user_id && user?.isInstructor && (
 							<Button
 								onClick={changeView}
 								variant={"link"}

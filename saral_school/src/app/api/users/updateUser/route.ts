@@ -46,6 +46,7 @@ export async function PUT(request: NextRequest) {
 			bio: response?.data.bio,
 			headline: response?.data.headline,
 			fullName: response?.data.fullName,
+			isInstructor: response?.data.isInstructor,
 		};
 		const formData = new FormData();
 		let uploadResponse;

@@ -85,6 +85,7 @@ export async function PUT(
 	try {
 		const { id } = params;
 		const token = cookies().get("token")?.value;
+		const user_id = cookies().get("user_id")?.value;
 		if (!token)
 			return NextResponse.json(
 				{
@@ -95,7 +96,7 @@ export async function PUT(
 		console.log("course put", request);
 		if (request.headers.get("content-type") === "application/json") {
 			const updatedInfo = await request.json();
-			console.log(updatedInfo);
+
 			const response = await axios.put(
 				`${process.env.STRAPI_URL}/api/courses/${id}?populate=*`,
 				{
@@ -107,12 +108,12 @@ export async function PUT(
 					headers: { Authorization: `Bearer ${token}` },
 				}
 			);
-			console.log(response.data?.data);
 			const data = response.data?.data;
 
 			// console.log(data?.attributes.thumbnail.data);
 			return NextResponse.json(createResponse(data));
 		}
+
 		const formData = await request.formData();
 
 		console.log(formData);

@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 		}
 		return NextResponse.json(
 			{
-				message: error.response?.data?.error.message,
+				message: "Email is already taken!",
 			},
 			{ status: 400 }
 		);

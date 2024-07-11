@@ -6,7 +6,7 @@ export interface userDataType {
 	user_id: string;
 	username: string;
 	email: string;
-	isInstructor?: boolean;
+	isInstructor: boolean;
 	bio?: string;
 	headline?: string;
 	avatar?: imageType;
@@ -18,6 +18,7 @@ export const defaultUser: userDataType = {
 	username: "",
 	email: "",
 	fullName: "",
+	isInstructor: false,
 };
 
 export interface videoType {

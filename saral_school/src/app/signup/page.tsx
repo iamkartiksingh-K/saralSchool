@@ -27,7 +27,7 @@ import { Input } from "@/components/ui/input";
 import signupSchema from "@/schema/signupSchema";
 import { useState } from "react";
 import Link from "next/link";
-
+import { Switch } from "@/components/ui/switch";
 export default function SignupForm() {
 	const [loading, setLoading] = useState(false);
 	const { toast } = useToast();
@@ -37,6 +37,7 @@ export default function SignupForm() {
 			fullName: "",
 			email: "",
 			password: "",
+			isInstructor: false,
 		},
 	});
 	async function onSubmit(values: z.infer<typeof signupSchema>) {
@@ -111,6 +112,25 @@ export default function SignupForm() {
 									<FormLabel>Password</FormLabel>
 									<FormControl>
 										<Input {...field} />
+									</FormControl>
+
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name='isInstructor'
+							render={({ field }) => (
+								<FormItem className='flex items-center justify-between'>
+									<FormLabel>
+										Are you an instructor?
+									</FormLabel>
+									<FormControl>
+										<Switch
+											checked={field.value}
+											onCheckedChange={field.onChange}
+										/>
 									</FormControl>
 
 									<FormMessage />

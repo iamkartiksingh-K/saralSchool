@@ -12,7 +12,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ImageIcon, Pencil, PlusCircle, VideoIcon } from "lucide-react";
+import {
+	ImageIcon,
+	Pencil,
+	PlusCircle,
+	VideoIcon,
+	LoaderCircleIcon,
+} from "lucide-react";
 import { useState, Dispatch, SetStateAction } from "react";
 import { lectureType, videoType } from "@/lib/types";
 import Image from "next/image";
@@ -143,7 +149,11 @@ export const VideoForm = ({
 							<Button
 								disabled={!isValid || isSubmitting}
 								type='submit'>
-								Save
+								{isSubmitting ? (
+									<LoaderCircleIcon className='animate-spin' />
+								) : (
+									"Save"
+								)}
 							</Button>
 						</div>
 					</form>

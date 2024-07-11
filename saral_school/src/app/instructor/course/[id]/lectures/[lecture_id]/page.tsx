@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { VideoForm } from "./_components/videoUpload";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { IsLectureFreeForm } from "./_components/isFreeForm";
 
 export default function LecturePage({
 	params,
@@ -115,6 +116,12 @@ export default function LecturePage({
 								course_id={id}
 								setLecture={setLecture}
 								lecture={lecture}
+							/>
+							<IsLectureFreeForm
+								initialValues={{ isFree: lecture.isFree }}
+								course_id={id}
+								lecture_id={lecture_id}
+								setLecture={setLecture}
 							/>
 						</>
 					)}

@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
 		console.log(response);
 		const oneMonth = 30 * 24 * 60 * 60 * 1000;
 		cookies().set("token", response.data?.jwt, { maxAge: oneMonth });
+		cookies().set("user_id", response.data?.user.id, { maxAge: oneMonth });
 		// const data = {
 		// 	user_id: response?.data.user?.id,
 		// 	email: response?.data.user?.email,

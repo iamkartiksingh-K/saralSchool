@@ -46,7 +46,7 @@ export default function EditCourse() {
 				const response = await axios.get(`/api/courses/${id}`);
 				const data = response?.data?.data;
 				if (data) setCourse(data);
-				console.log(response);
+				console.log(data);
 			} catch (error) {
 				console.log(error);
 				router.push("/");

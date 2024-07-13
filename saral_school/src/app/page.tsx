@@ -11,6 +11,7 @@ export default function Home() {
   const { user } = useContext(UserDataContext);
   const [courses, setCourses] = useState<courseType[]>([]);
   const router = useRouter();
+
   useEffect(() => {
     async function init() {
       const response = await axios.get("/api/courses");
@@ -18,6 +19,7 @@ export default function Home() {
     }
     init();
   }, []);
+
   const showCourse = (course_id: string) => {
     router.push(`/courses/${course_id}`);
   };
@@ -34,7 +36,9 @@ export default function Home() {
       <div>
         <div className="mb-5">
           <h1 className="text-2xl font-semibold text-gray-800 mb-2">
-            Welcome back, {user.fullName}
+            {user.fullName
+              ? `Welcome back, ${user.fullName}`
+              : "Welcome to SaralSchool"}
           </h1>
           {/* <Image
             width={1536}

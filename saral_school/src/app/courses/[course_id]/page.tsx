@@ -1,5 +1,10 @@
 "use client";
-import { defaultCourse, type courseType } from "@/lib/types";
+import {
+  defaultCourse,
+  defaultLecture,
+  type lectureType,
+  type courseType,
+} from "@/lib/types";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -8,21 +13,35 @@ import { User, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CldVideoPlayer } from "next-cloudinary";
 import "next-cloudinary/dist/cld-video-player.css";
+import { LectureList } from "../_components/LectureList";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+
 export default function ShowCourse() {
   const { course_id } = useParams();
   const [course, setCourse] = useState<courseType>(defaultCourse);
+  const [preview, setPreview] = useState<lectureType>(defaultLecture);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function init() {
       try {
         const response = await axios.get(`/api/courses/${course_id}`);
-        console.log(response.data.data);
-        setCourse(response.data.data);
+        const data = response.data.data;
+        const lectureResponse = await axios.get(
+          `/api/courses/${course_id}/lectures/${data.lectures[0].lecture_id}`,
+        );
+        console.log(lectureResponse);
+        setPreview(lectureResponse.data.data);
+        setCourse(data);
       } catch (error: any) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     init();
   }, [course_id]);
+
+  console.log(preview);
   return (
     <div className="h-dvh">
       <div className="bg-slate-800 text-white h-1/4 py-5">
@@ -46,19 +65,52 @@ export default function ShowCourse() {
         </div>
       </div>
       <div className="container pt-8">
-        <div className="mt-8 grid grid-cols-2">
+        <div className="mt-8 grid grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-semibold">About</h2>
-            <p>{course.description}</p>
+            <p className="text-justify">{course.description}</p>
           </div>
           <div>
-            <CldVideoPlayer width="1920" height="1080" src="something" />
+            {!loading && (
+              <CldVideoPlayer
+                width="1920"
+                height="1080"
+                src={preview.video?.url || "something"}
+                id={preview.lecture_id}
+              />
+            )}
           </div>
         </div>
         <div className="mt-12">
           <h2 className="text-2xl font-semibold">Lectures</h2>
+          {!loading && (
+            <LectureList
+              lectures={course.lectures}
+              className="mt-5"
+              setLecture={setPreview}
+            />
+          )}
+        </div>
+        <div className="mt-12 mb-4">
+          <h2 className="text-2xl font-semibold">Instructor</h2>
+          <div className="mt-7">
+            <div className="flex items-center">
+              <Avatar>
+                <AvatarImage src={course.instructor?.avatar?.url} />
+                <AvatarFallback>
+                  {course.instructor?.fullName[0]}
+                </AvatarFallback>
+              </Avatar>
+              <div className="ml-3">
+                <p className="font-semibold">{course.instructor?.fullName}</p>
+                <p className="text-sm">{course.instructor?.headline}</p>
+              </div>
+            </div>
+            <p className="mt-3 ml-12">{course.instructor?.bio}</p>
+          </div>
         </div>
       </div>
+      <div className="w-full h-20 mt-7" />
     </div>
   );
 }

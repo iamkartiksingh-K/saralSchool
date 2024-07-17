@@ -143,6 +143,7 @@ export default function EditCourse() {
                 <h2 className="text-xl">Course chapters</h2>
               </div>
               <LectureForm
+                isLive={course.isLive || false}
                 courseId={course.course_id}
                 course={course}
                 setCourse={setCourse}

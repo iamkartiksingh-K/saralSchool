@@ -15,6 +15,7 @@ import { CldVideoPlayer } from "next-cloudinary";
 import "next-cloudinary/dist/cld-video-player.css";
 import { LectureList } from "../_components/LectureList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
 
 export default function ShowCourse() {
   const { course_id } = useParams();
@@ -52,10 +53,12 @@ export default function ShowCourse() {
               <p className="text-sm font-semibold flex items-center">
                 <User className="h-4 w-4 mr-2" /> {course.instructor?.fullName}
               </p>
-              <p className="text-sm font-semibold flex items-center">
-                <BookOpen className="h-4 w-4 mr-2" />
-                {course.lectures?.length} Lectures
-              </p>
+              {!course.isLive && (
+                <p className="text-sm font-semibold flex items-center">
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  {course.lectures?.length} Lectures
+                </p>
+              )}
             </div>
           </div>
 
@@ -71,26 +74,33 @@ export default function ShowCourse() {
             <p className="text-justify">{course.description}</p>
           </div>
           <div>
-            {!loading && (
+            {!loading && !course.isLive && (
               <CldVideoPlayer
                 width="1920"
                 height="1080"
                 src={preview.video?.url || "something"}
-                id={preview.lecture_id}
+                id={`${preview.lecture_id}-1`}
+              />
+            )}
+            {!loading && course.isLive && (
+              <Image
+                src={course.thumbnail?.url || "/thumbnail-placeholder.png"}
+                alt={course.name}
+                width="1920"
+                height="1080"
+                className="rounded-sm"
               />
             )}
           </div>
         </div>
-        <div className="mt-12">
-          <h2 className="text-2xl font-semibold">Lectures</h2>
-          {!loading && (
-            <LectureList
-              lectures={course.lectures}
-              className="mt-5"
-              setLecture={setPreview}
-            />
-          )}
-        </div>
+        {!course.isLive && (
+          <div className="mt-12">
+            <h2 className="text-2xl font-semibold">Lectures</h2>
+            {!loading && (
+              <LectureList lectures={course.lectures} className="mt-5" />
+            )}
+          </div>
+        )}
         <div className="mt-12 mb-4">
           <h2 className="text-2xl font-semibold">Instructor</h2>
           <div className="mt-7">

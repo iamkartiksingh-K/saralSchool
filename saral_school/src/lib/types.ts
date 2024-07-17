@@ -23,6 +23,7 @@ export interface lectureType {
   isFree: boolean;
   video?: videoType;
   contentLink?: string;
+  classLink?: string;
   publishedAt: Date | null;
   course_id: string;
   position?: number;

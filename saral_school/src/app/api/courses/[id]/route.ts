@@ -28,6 +28,7 @@ function createResponse(data: any) {
         return {
           lecture_id: lecture.id,
           contentLink: lecture.attributes.contentLink,
+          classLink: lecture.attributes.classLink,
           isFree: lecture.attributes.isFree,
           name: lecture.attributes.name,
           publishedAt: lecture.attributes.publishedAt,

@@ -34,6 +34,7 @@ export async function GET(
         isFree: data.attributes.isFree,
         contentLink: data.attributes.contentLink,
         course_id: data.attributes.course.data.id,
+        classLink: data.attributes.classLink,
         video: {
           video_id: data.attributes.video?.data?.id,
           url: data.attributes.video?.data?.attributes.url,

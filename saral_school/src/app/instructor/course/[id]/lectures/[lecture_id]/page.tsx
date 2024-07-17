@@ -11,10 +11,14 @@ import { VideoForm } from "./_components/videoUpload";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { IsLectureFreeForm } from "./_components/isFreeForm";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import { ClassLinkForm } from "./_components/classLinkForm";
+import { ContentLinkForm } from "./_components/contentLinkForm";
 
 export default function LecturePage() {
-  const { id, lecture_id } = useParams();
+  const { id, lecture_id }: { id: string; lecture_id: string } = useParams();
+  const searchParams = useSearchParams();
+  const isLive = searchParams.get("isLive") === "true";
   const [lecture, setLecture] = useState(defaultLecture);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
@@ -36,7 +40,7 @@ export default function LecturePage() {
   }, [id, lecture_id]);
   const requiredFields = [
     lecture.name,
-    lecture.video?.url || lecture.contentLink,
+    lecture.video?.url || lecture.contentLink || lecture.classLink,
   ];
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
@@ -75,7 +79,7 @@ export default function LecturePage() {
           </Link>
           <div className="flex items-center justify-between w-full mt-8">
             <div className="flex flex-col gap-y-2">
-              <h1 className="text-2xl font-medium">Chapter Creation</h1>
+              <h1 className="text-2xl font-medium">Lecture Creation</h1>
               <span className="text-sm text-slate-700">
                 Complete all fields {completionText}
               </span>
@@ -96,7 +100,7 @@ export default function LecturePage() {
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={LayoutDashboard} />
-              <h2 className="text-xl">Customize your chapter</h2>
+              <h2 className="text-xl">Customize your lecture</h2>
             </div>
           </div>
           {!isLoading && (
@@ -107,13 +111,34 @@ export default function LecturePage() {
                 lecture_id={lecture_id}
                 setLecture={setLecture}
               />
-              <VideoForm
-                initialValues={lecture.video}
-                lecture_id={lecture.lecture_id}
-                course_id={id}
-                setLecture={setLecture}
-                lecture={lecture}
-              />
+              {!isLive ? (
+                <VideoForm
+                  initialValues={lecture.video}
+                  lecture_id={lecture.lecture_id}
+                  course_id={id}
+                  setLecture={setLecture}
+                  lecture={lecture}
+                />
+              ) : (
+                <div>
+                  <ClassLinkForm
+                    initialValues={{
+                      classLink: lecture.classLink || "No Link",
+                    }}
+                    course_id={id}
+                    lecture_id={lecture_id}
+                    setLecture={setLecture}
+                  />
+                  <ContentLinkForm
+                    initialValues={{
+                      contentLink: lecture.contentLink || "No Link",
+                    }}
+                    course_id={id}
+                    lecture_id={lecture_id}
+                    setLecture={setLecture}
+                  />
+                </div>
+              )}
               <IsLectureFreeForm
                 initialValues={{ isFree: lecture.isFree }}
                 course_id={id}

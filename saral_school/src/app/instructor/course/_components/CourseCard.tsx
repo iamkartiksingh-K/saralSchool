@@ -85,7 +85,7 @@ export default function CourseCard({ course }: { course: courseType }) {
     <Card className="w-80">
       <CardContent className="flex flex-col items-center justify-center p-1">
         <Image
-          className="rounded-lg w-full h-48 object-contain bg-gray-100"
+          className="rounded-lg w-full h-48 object-cover bg-gray-100"
           width={200}
           height={50}
           alt={course.name}

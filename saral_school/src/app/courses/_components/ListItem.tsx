@@ -13,13 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { CldVideoPlayer } from "next-cloudinary";
 
-export function ListItem({
-  lecture,
-  setLecture,
-}: {
-  lecture: lectureType;
-  setLecture: Dispatch<SetStateAction<lectureType>>;
-}) {
+export function ListItem({ lecture }: { lecture: lectureType }) {
   const [displayLecture, setDisplayLecture] =
     useState<lectureType>(defaultLecture);
   const [open, setOpen] = useState(false);

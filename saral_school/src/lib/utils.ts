@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getImageObj(image: any, type: string): imageType {
-  // console.log(image);
+  console.log(image);
   const imageObj = {
     image_id: "",
     url: "",

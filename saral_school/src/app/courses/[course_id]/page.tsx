@@ -80,6 +80,7 @@ export default function ShowCourse() {
                 height="1080"
                 src={preview.video?.url || "something"}
                 id={`${preview.lecture_id}-1`}
+                logo={false}
               />
             )}
             {!loading && course.isLive && (

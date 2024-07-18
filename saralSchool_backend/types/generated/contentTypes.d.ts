@@ -450,6 +450,7 @@ export interface ApiLectureLecture extends Schema.CollectionType {
       'api::course.course'
     >;
     position: Attribute.Integer;
+    classLink: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

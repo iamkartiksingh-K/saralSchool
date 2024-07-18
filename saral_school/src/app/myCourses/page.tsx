@@ -21,7 +21,7 @@ export default function MyCourses() {
   }, []);
 
   const showCourse = (course_id: string) => {
-    // router.push(`/courses/${course_id}`);
+    router.push(`/myCourses/${course_id}`);
   };
   const allCourseCards = courses.map((course) => (
     <PublicCourseCard

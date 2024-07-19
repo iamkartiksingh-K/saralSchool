@@ -59,6 +59,8 @@ export async function GET(
           position: lecture.attributes.position,
           publishedAt: lecture.attributes.publishedAt,
           isFree: lecture.attributes.isFree,
+          classLink: lecture.attributes.classLink,
+          contentLink: lecture.attributes.contentLink,
           video: {
             video_id: lecture.attributes.video?.data?.id,
             url: lecture.attributes.video?.data?.attributes.url,

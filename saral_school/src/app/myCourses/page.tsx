@@ -6,7 +6,7 @@ import type { courseType } from "@/lib/types";
 import { PublicCourseCard } from "@/components/PublicCourseCard";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
+import { Separator } from "@/components/ui/separator";
 export default function MyCourses() {
   const { user } = useContext(UserDataContext);
   const [courses, setCourses] = useState<courseType[]>([]);
@@ -20,8 +20,8 @@ export default function MyCourses() {
     init();
   }, []);
 
-  const showCourse = (course_id: string) => {
-    router.push(`/myCourses/${course_id}`);
+  const showCourse = (course_id: string, isLive: boolean) => {
+    router.push(`/myCourses/${course_id}?isLive=${isLive}`);
   };
   const allCourseCards = courses.map((course) => (
     <PublicCourseCard
@@ -33,8 +33,8 @@ export default function MyCourses() {
   return (
     <div className="container pt-10">
       <div className="flex flex-col space-y-3">
-        <h2 className="text-xl font-semibold text-gray-800 mb-3">My Courses</h2>
-
+        <h2 className="text-xl font-semibold text-gray-800">My Courses</h2>
+        <Separator className="my-3" />
         <div className="flex space-x-3">{allCourseCards}</div>
       </div>
     </div>

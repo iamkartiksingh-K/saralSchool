@@ -1,5 +1,5 @@
 "use client";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { Separator } from "@/components/ui/separator";
 import { LectureItem } from "../_components/LectureItem";
 import { useState, useEffect, useRef } from "react";
@@ -7,9 +7,15 @@ import { defaultLecture, type lectureType } from "@/lib/types";
 import axios from "axios";
 import { CldVideoPlayer } from "next-cloudinary";
 import "next-cloudinary/dist/cld-video-player.css";
+import { Button } from "@/components/ui/button";
+import { Download, VideoIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function Course() {
   const { course_id } = useParams();
+  const searhParams = useSearchParams();
+  const isLive = searhParams.get("isLive") === "true";
+  console.log(isLive);
   const [lectures, setLectures] = useState<lectureType[]>([]);
   const [currLecture, setCurrLecture] = useState<lectureType>(defaultLecture);
   const [loading, setLoading] = useState(true);
@@ -36,13 +42,10 @@ export default function Course() {
     init();
   }, [course_id, router]);
 
-  // useEffect(() => {
-  //   videoRef.current?.load();
-  // }, [currLecture]);
-
   const changeLecture = (lecture: lectureType) => {
     setCurrLecture(lecture);
   };
+  console.log(currLecture);
   const allLectures = lectures?.map((lecture) => (
     <LectureItem
       key={lecture.lecture_id}
@@ -54,7 +57,7 @@ export default function Course() {
     <div className="grid grid-cols-12 h-full">
       <div className="col-span-2 border">{allLectures}</div>
       <div className="col-span-10 border flex justify-center item-start">
-        {!loading && (
+        {!loading && !isLive && (
           <div className="w-[98%] p-5">
             <CldVideoPlayer
               key={currLecture.lecture_id}
@@ -66,6 +69,27 @@ export default function Course() {
               videoRef={videoRef}
               playerRef={playerRef}
             />
+          </div>
+        )}
+        {!loading && isLive && (
+          <div className="mt-5 w-1/2 flex space-x-4 justify-center">
+            {currLecture.classLink && (
+              <Link href={currLecture.classLink} target="_blank">
+                <Button>
+                  <VideoIcon className="mr-3 h-4 w-4 text-red-400" />
+                  Join Class
+                </Button>
+              </Link>
+            )}
+            {currLecture.contentLink && (
+              <Link href={currLecture.contentLink} target="_blank">
+                <Button>
+                  {" "}
+                  <Download className="mr-3 h-4 w-4" />
+                  Download Resources
+                </Button>
+              </Link>
+            )}
           </div>
         )}
       </div>

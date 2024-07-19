@@ -10,17 +10,21 @@ import {
 import Image from "next/image";
 import { Badge } from "./ui/badge";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+
 export function PublicCourseCard({
   course,
   showCourse,
 }: {
   course: courseType;
-  showCourse: (course_id: string) => void;
+  showCourse: (course_id: string, isLive: boolean) => void;
 }) {
+  const path = usePathname();
+  console.log(path);
   return (
     <Card
       className="w-64 cursor-pointer"
-      onClick={() => showCourse(course.course_id)}
+      onClick={() => showCourse(course.course_id, course.isLive || false)}
     >
       <CardContent className="flex flex-col items-center justify-center p-1">
         <Image
@@ -42,7 +46,9 @@ export function PublicCourseCard({
           >
             {course.isLive ? "Live" : "Recorded"}
           </Badge>
-          <p className="font-semibold mt-3">Rs.{course.price}</p>
+          {path !== "/myCourses" && (
+            <p className="font-semibold mt-3">Rs.{course.price}</p>
+          )}
         </div>
       </CardContent>
     </Card>

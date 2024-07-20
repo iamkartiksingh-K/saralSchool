@@ -49,6 +49,9 @@ export async function GET(
     const publishedLectures = lectures.filter((lecture: any) => {
       return lecture.attributes.publishedAt;
     });
+    publishedLectures.sort(
+      (a: any, b: any) => a.attributes.position - b.attributes.position,
+    );
     console.log(publishedLectures);
     return NextResponse.json({
       message: "success",

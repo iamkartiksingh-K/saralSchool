@@ -428,6 +428,39 @@ export interface ApiCourseCourse extends Schema.CollectionType {
   };
 }
 
+export interface ApiCourseProgressCourseProgress extends Schema.CollectionType {
+  collectionName: 'course_progresses';
+  info: {
+    singularName: 'course-progress';
+    pluralName: 'course-progresses';
+    displayName: 'courseProgress';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    course_id: Attribute.String;
+    completedLectures: Attribute.JSON;
+    lastLecture: Attribute.String;
+    user_id: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course-progress.course-progress',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course-progress.course-progress',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiLectureLecture extends Schema.CollectionType {
   collectionName: 'lectures';
   info: {
@@ -915,6 +948,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::course.course': ApiCourseCourse;
+      'api::course-progress.course-progress': ApiCourseProgressCourseProgress;
       'api::lecture.lecture': ApiLectureLecture;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;

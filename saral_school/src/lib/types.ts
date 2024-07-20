@@ -42,7 +42,20 @@ export interface courseType {
   category?: string | null;
   publishedAt: Date | null;
 }
+export interface courseProgress {
+  id: string;
+  completedLectures: Array<string>;
+  lastLecture: string;
+  user_id: string;
+}
 // defaults
+
+export const defaultCourseProgress: courseProgress = {
+  id: "",
+  completedLectures: [],
+  lastLecture: "",
+  user_id: "",
+};
 export const defaultUser: userDataType = {
   user_id: "",
   username: "",

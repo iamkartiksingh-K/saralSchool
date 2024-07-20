@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_progresses",
+  "info": {
+    "singularName": "course-progress",
+    "pluralName": "course-progresses",
+    "displayName": "courseProgress",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "course_id": {
+      "type": "string"
+    },
+    "completedLectures": {
+      "type": "json"
+    },
+    "lastLecture": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    }
+  }
+}

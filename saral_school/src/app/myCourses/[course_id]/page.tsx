@@ -52,12 +52,14 @@ export default function Course() {
         );
 
         if (data.length > 0) {
-          setCurrLecture(
-            data.find(
-              (l: lectureType) =>
-                String(l.lecture_id) === progressData.lastLecture,
-            ),
-          );
+          if (!progressData.lastLecture) setCurrLecture(data[0]);
+          else
+            setCurrLecture(
+              data.find(
+                (l: lectureType) =>
+                  String(l.lecture_id) === progressData.lastLecture,
+              ),
+            );
         }
         setLoading(false);
         console.log(data);

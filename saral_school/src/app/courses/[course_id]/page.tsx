@@ -16,12 +16,17 @@ import "next-cloudinary/dist/cld-video-player.css";
 import { LectureList } from "../_components/LectureList";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function ShowCourse() {
   const { course_id } = useParams();
   const [course, setCourse] = useState<courseType>(defaultCourse);
   const [preview, setPreview] = useState<lectureType>(defaultLecture);
   const [loading, setLoading] = useState(true);
+  const [bought, setBought] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     async function init() {
       try {
@@ -30,7 +35,11 @@ export default function ShowCourse() {
         const lectureResponse = await axios.get(
           `/api/courses/${course_id}/lectures/${data.lectures[0].lecture_id}`,
         );
-        console.log(lectureResponse);
+        const boughtResponse = await axios.get(
+          `/api/courses/${course_id}/buyCourse`,
+        );
+        console.log(boughtResponse);
+        setBought(boughtResponse.data.message === "bought");
         setPreview(lectureResponse.data.data);
         setCourse(data);
       } catch (error: any) {
@@ -41,7 +50,25 @@ export default function ShowCourse() {
     }
     init();
   }, [course_id]);
-
+  const buyCourse = async () => {
+    console.log();
+    if (!bought) {
+      try {
+        setSubmitting(true);
+        const buyResponse = await axios.post(
+          `/api/courses/${course_id}/buyCourse`,
+        );
+        setBought(true);
+      } catch (error) {
+        console.log(error);
+        router.push("/");
+      } finally {
+        setSubmitting(false);
+      }
+    } else {
+      router.push(`/myCourses/${course_id}?isLive=${course.isLive}`);
+    }
+  };
   console.log(preview);
   return (
     <div className="h-dvh">
@@ -62,8 +89,13 @@ export default function ShowCourse() {
             </div>
           </div>
 
-          <Button variant="secondary" className="w-24 font-semibold rounded-sm">
-            Buy Course
+          <Button
+            variant="secondary"
+            className="w-24 font-semibold rounded-sm"
+            onClick={buyCourse}
+            disabled={submitting}
+          >
+            {bought ? "Go to Course" : "Buy Course"}
           </Button>
         </div>
       </div>

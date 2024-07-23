@@ -1,8 +1,8 @@
+import { getImageObj } from "@/lib/utils";
+import axios from "axios";
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { cookies } from "next/headers";
-import axios from "axios";
-import { getImageObj } from "@/lib/utils";
 
 export async function GET(
   request: NextRequest,
@@ -29,6 +29,9 @@ export async function GET(
     const courseResponse = await axios.get(
       `${process.env.STRAPI_URL}/api/courses/${course_id}?populate[students]=students&populate[lectures][populate][0]=video`,
     );
+    // instead of checking the student, you should check if there is an entry in purchases collection with current user_id and course_id
+    // I created the purchase collection after this route so I forgot updating this route.
+
     const students = courseResponse.data.data.attributes.students.data;
     let found = false;
     for (let student of students) {

@@ -9,7 +9,7 @@ export async function GET(
   try {
     const { instructor_id } = params;
     const response = await axios.get(
-      `${STRAPI_URL}/api/users/${instructor_id}?populate[0]=thumbnail`,
+      `${process.env.STRAPI_URL}/api/users/${instructor_id}?populate[0]=thumbnail`,
     );
     console.log(response);
     return NextResponse.json({

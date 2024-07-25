@@ -74,10 +74,9 @@ npm run dev
     - **middleware.ts** (middleware)
 
 ### Current issues
-1. Add a check if the user who is updating the course is the creator of the course.
-2. Make the homepage look better.
-3. Make all the pages look consistent.
-4. sendgrid is not working correctly.
+1. Make the homepage look better.
+2. Make all the pages look consistent.
+3. sendgrid is not working correctly.
 
 ### Helpful resources
 1. To create queries to strapi follow this : https://docs.strapi.io/dev-docs/api/rest/populate-select

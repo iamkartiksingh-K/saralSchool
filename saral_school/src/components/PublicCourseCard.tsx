@@ -35,14 +35,16 @@ export function PublicCourseCard({
           src={course.thumbnail?.url || "/thumbnail-placeholder.png"}
         />
         <div className="flex flex-col items-start mt-3 w-full px-2 mb-3">
-          <p className="text-base font-semibold ">{course.name}</p>
-          <p className="text-gray-600 text-xs font-medium">
-            {" "}
-            {course.instructor?.fullName}
-          </p>
+          <div className="h-14 mb-2">
+            <p className="text-base font-semibold">{course.name}</p>
+            <p className="text-gray-600 text-xs font-medium">
+              {" "}
+              {course.instructor?.fullName}
+            </p>
+          </div>
           <Badge
             variant={course.isLive ? "destructive" : "secondary"}
-            className={cn("mt-2")}
+            className={"mt-4"}
           >
             {course.isLive ? "Live" : "Recorded"}
           </Badge>

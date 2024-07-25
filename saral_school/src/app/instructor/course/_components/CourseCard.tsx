@@ -82,8 +82,8 @@ export default function CourseCard({ course }: { course: courseType }) {
   };
 
   return (
-    <Card className="w-80">
-      <CardContent className="flex flex-col items-center justify-center p-1">
+    <Card className="w-80 flex flex-col">
+      <CardContent className="flex flex-col items-center justify-center p-1 ">
         <Image
           className="rounded-lg w-full h-48 object-cover bg-gray-100"
           width={200}
@@ -91,12 +91,14 @@ export default function CourseCard({ course }: { course: courseType }) {
           alt={course.name}
           src={course.thumbnail?.url || "/thumbnail-placeholder.png"}
         />
-        <div className="flex flex-col justify-between items-start mt-4 w-full px-5 space-y-3">
-          <p className="text-base font-semibold ">{course.name}</p>
-          <Badge variant={"secondary"} className="h-6">
-            {course.publishedAt && <Dot className="text-green-600" />}
-            {course.publishedAt ? "Published" : "Draft"}
-          </Badge>
+        <div className="flex flex-col justify-between items-start mt-4 w-full px-5 space-y-3 ">
+          <p className="text-base font-semibold h-14 flex flex-col">
+            {course.name}
+            <Badge variant={"secondary"} className="h-6 w-fit mt-1">
+              {course.publishedAt && <Dot className="text-green-600" />}
+              {course.publishedAt ? "Published" : "Draft"}
+            </Badge>
+          </p>
         </div>
       </CardContent>
       <CardFooter className="flex items-center justify-between mt-9">

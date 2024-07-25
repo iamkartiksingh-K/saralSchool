@@ -43,7 +43,7 @@ export default function Navbar() {
       const response = await axios.get("/api/users/logout");
       setIsLoggedIn(false);
       setUser(defaultUser);
-      router.push("/");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }

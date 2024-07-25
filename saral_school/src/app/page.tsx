@@ -8,18 +8,33 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { user } = useContext(UserDataContext);
+  const { user, setUser } = useContext(UserDataContext);
   const [courses, setCourses] = useState<courseType[]>([]);
   const router = useRouter();
 
   useEffect(() => {
     async function init() {
-      const response = await axios.get("/api/courses");
-      setCourses(response.data.data);
+      try {
+        const response = await axios.get("/api/courses");
+        setCourses(response.data.data);
+      } catch {
+        console.log("some error");
+      }
     }
     init();
   }, []);
 
+  useEffect(() => {
+    async function init() {
+      try {
+        const meResponse = await axios.get("/api/users/me");
+        setUser(meResponse.data.data);
+      } catch {
+        console.log("some error");
+      }
+    }
+    init();
+  }, [setUser]);
   const showCourse = (course_id: string) => {
     router.push(`/courses/${course_id}`);
   };

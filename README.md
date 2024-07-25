@@ -1,9 +1,7 @@
 # salaraSchool
 saralSchool is a learning management system built using strapi(CMS), Next.js, React.js and TypeScript.
 There are two types of users, an instructor and a student. Instructor can create courses(both live and recorded) and students can purchase a course and learn from it.
-<video width="320" height="240" controls>
-  <source src="/videoForSaralSchool.mp4" type="video/mp4">
-</video>
+![](videoForSaralSchool.mp4)
 
 ### Getting Started
 To run the strapi instance  

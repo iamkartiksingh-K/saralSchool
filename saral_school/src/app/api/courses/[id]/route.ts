@@ -95,6 +95,7 @@ export async function PUT(
     const { id } = params;
     const token = cookies().get("token")?.value;
     const user_id = cookies().get("user_id")?.value;
+    console.log("user-id:", typeof user_id);
     if (!token)
       return NextResponse.json(
         {
@@ -103,6 +104,27 @@ export async function PUT(
         { status: 400 },
       );
     // console.log("course put", request);
+    const instructorResponse = await axios.get(
+      `${process.env.STRAPI_URL}/api/courses/${id}?populate[instructor]=instructor`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+    if (
+      Number(user_id) !==
+      instructorResponse.data.data.attributes.instructor.data.id
+    ) {
+      return NextResponse.json(
+        {
+          message: "unautharized",
+        },
+        { status: 400 },
+      );
+    }
+    console.log(
+      "here:",
+      instructorResponse.data.data.attributes.instructor.data.id,
+    );
     if (request.headers.get("content-type") === "application/json") {
       const updatedInfo = await request.json();
 
@@ -126,7 +148,6 @@ export async function PUT(
 
     const formData = await request.formData();
 
-    console.log(formData);
     const thumbnail = formData.get("thumbnail") as File;
     const old_thumbanil_id = formData.get("image_id") as string;
 

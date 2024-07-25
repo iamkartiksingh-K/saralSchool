@@ -31,7 +31,7 @@ export async function POST(
         message: "User Not Found",
       });
 
-    console.log(users[0]);
+    console.log(users[0].id);
 
     const addUser = await axios.put(
       `${process.env.STRAPI_URL}/api/courses/${id}?populate=*`,
@@ -40,6 +40,32 @@ export async function POST(
           students: {
             connect: [users[0].id],
           },
+        },
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+    await axios.post(
+      `${process.env.STRAPI_URL}/api/purchases`,
+      {
+        data: {
+          user_id: users[0].id,
+          course_id: id,
+        },
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+    await axios.post(
+      `${process.env.STRAPI_URL}/api/course-progresses`,
+      {
+        data: {
+          lastLecture: "",
+          completedLectures: { data: [] },
+          user_id: String(users[0].id),
+          course_id: id,
         },
       },
       {

@@ -61,7 +61,7 @@ export default function ShowCourse() {
         setBought(true);
       } catch (error) {
         console.log(error);
-        router.push("/");
+        router.push("/login");
       } finally {
         setSubmitting(false);
       }

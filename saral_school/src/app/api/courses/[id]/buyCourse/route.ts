@@ -8,12 +8,9 @@ export async function GET(
   const user_id = request.cookies.get("user_id")?.value;
   const { id } = params;
   if (!token)
-    return NextResponse.json(
-      {
-        message: "user not logged in",
-      },
-      { status: 400 },
-    );
+    return NextResponse.json({
+      message: "not bought",
+    });
   try {
     const response = await axios.get(
       `${process.env.STRAPI_URL}/api/purchases?filters[user_id][$eq]=${user_id}&filters[course_id][$eq]=${id}`,

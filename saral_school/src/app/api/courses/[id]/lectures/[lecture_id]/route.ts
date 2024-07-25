@@ -9,19 +9,16 @@ export async function GET(
 ) {
   try {
     const { lecture_id } = params;
-    const token = cookies().get("token")?.value;
-    if (!token)
-      return NextResponse.json(
-        {
-          message: "user not logged in",
-        },
-        { status: 400 },
-      );
+    // const token = cookies().get("token")?.value;
+    // if (!token)
+    //   return NextResponse.json(
+    //     {
+    //       message: "user not logged in",
+    //     },
+    //     { status: 400 },
+    //   );
     const response = await axios.get(
       `${process.env.STRAPI_URL}/api/lectures/${lecture_id}?populate=*`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      },
     );
     console.log(response.data?.data.attributes.video);
     const data = response.data?.data;
@@ -36,8 +33,12 @@ export async function GET(
         course_id: data.attributes.course.data.id,
         classLink: data.attributes.classLink,
         video: {
-          video_id: data.attributes.video?.data?.id,
-          url: data.attributes.video?.data?.attributes.url,
+          video_id: data.attributes.isFree
+            ? data.attributes.video?.data?.id
+            : "",
+          url: data.attributes.isFree
+            ? data.attributes.video?.data?.attributes.url
+            : "",
         },
       },
     });

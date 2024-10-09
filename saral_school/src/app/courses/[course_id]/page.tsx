@@ -100,7 +100,7 @@ export default function ShowCourse() {
         </div>
       </div>
       <div className="container pt-8">
-        <div className="mt-8 grid grid-cols-2 gap-8">
+        <div className="mt-8 grid sm:grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
             <h2 className="text-2xl font-semibold">About</h2>
             <p className="text-justify">{course.description}</p>

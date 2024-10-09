@@ -15,7 +15,7 @@ export default function SideNavbar({
     setOption(value);
   };
   return (
-    <div className="flex flex-col w-64 border-r-2 p-1">
+    <div className="flex flex-col md:52 lg:w-64 border-r-2 p-1">
       <SideNavMenuItem
         selectItem={() => select("instructorCourse")}
         text="Courses"

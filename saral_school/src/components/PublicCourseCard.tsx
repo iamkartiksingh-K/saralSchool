@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
-import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
 export function PublicCourseCard({
@@ -23,7 +22,7 @@ export function PublicCourseCard({
   console.log(path);
   return (
     <Card
-      className="w-64 cursor-pointer"
+      className="cursor-pointer mt-3"
       onClick={() => showCourse(course.course_id, course.isLive || false)}
     >
       <CardContent className="flex flex-col items-center justify-center p-1">

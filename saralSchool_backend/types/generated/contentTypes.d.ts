@@ -362,176 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiCourseCourse extends Schema.CollectionType {
-  collectionName: 'courses';
-  info: {
-    singularName: 'course';
-    pluralName: 'courses';
-    displayName: 'Course';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    description: Attribute.Text;
-    rating: Attribute.Float & Attribute.DefaultTo<0>;
-    price: Attribute.Float & Attribute.DefaultTo<0>;
-    thumbnail: Attribute.Media<'images'>;
-    isLive: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<false>;
-    instructor: Attribute.Relation<
-      'api::course.course',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    students: Attribute.Relation<
-      'api::course.course',
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
-    lectures: Attribute.Relation<
-      'api::course.course',
-      'oneToMany',
-      'api::lecture.lecture'
-    >;
-    category: Attribute.Enumeration<
-      [
-        'Web Development',
-        'Business',
-        'Design',
-        'Marketing',
-        'Photography & Video',
-        'Health & Fitness',
-        'Music',
-        'Teaching & Academics',
-        'Computer Science',
-        'Android Development',
-        'Data Science'
-      ]
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::course.course',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::course.course',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiCourseProgressCourseProgress extends Schema.CollectionType {
-  collectionName: 'course_progresses';
-  info: {
-    singularName: 'course-progress';
-    pluralName: 'course-progresses';
-    displayName: 'courseProgress';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    course_id: Attribute.String;
-    completedLectures: Attribute.JSON;
-    lastLecture: Attribute.String;
-    user_id: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::course-progress.course-progress',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::course-progress.course-progress',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiLectureLecture extends Schema.CollectionType {
-  collectionName: 'lectures';
-  info: {
-    singularName: 'lecture';
-    pluralName: 'lectures';
-    displayName: 'Lecture';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    name: Attribute.String & Attribute.Required;
-    video: Attribute.Media<'videos' | 'files'>;
-    isFree: Attribute.Boolean & Attribute.DefaultTo<false>;
-    contentLink: Attribute.String;
-    course: Attribute.Relation<
-      'api::lecture.lecture',
-      'manyToOne',
-      'api::course.course'
-    >;
-    position: Attribute.Integer;
-    classLink: Attribute.String;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::lecture.lecture',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::lecture.lecture',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPurchasePurchase extends Schema.CollectionType {
-  collectionName: 'purchases';
-  info: {
-    singularName: 'purchase';
-    pluralName: 'purchases';
-    displayName: 'purchase';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    user_id: Attribute.Integer;
-    course_id: Attribute.Integer;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::purchase.purchase',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::purchase.purchase',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -967,6 +797,176 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCourseCourse extends Schema.CollectionType {
+  collectionName: 'courses';
+  info: {
+    singularName: 'course';
+    pluralName: 'courses';
+    displayName: 'Course';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    description: Attribute.Text;
+    rating: Attribute.Float & Attribute.DefaultTo<0>;
+    price: Attribute.Float & Attribute.DefaultTo<0>;
+    thumbnail: Attribute.Media<'images'>;
+    isLive: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<false>;
+    instructor: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    students: Attribute.Relation<
+      'api::course.course',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    lectures: Attribute.Relation<
+      'api::course.course',
+      'oneToMany',
+      'api::lecture.lecture'
+    >;
+    category: Attribute.Enumeration<
+      [
+        'Web Development',
+        'Business',
+        'Design',
+        'Marketing',
+        'Photography & Video',
+        'Health & Fitness',
+        'Music',
+        'Teaching & Academics',
+        'Computer Science',
+        'Android Development',
+        'Data Science'
+      ]
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course.course',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCourseProgressCourseProgress extends Schema.CollectionType {
+  collectionName: 'course_progresses';
+  info: {
+    singularName: 'course-progress';
+    pluralName: 'course-progresses';
+    displayName: 'courseProgress';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    course_id: Attribute.String;
+    completedLectures: Attribute.JSON;
+    lastLecture: Attribute.String;
+    user_id: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::course-progress.course-progress',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::course-progress.course-progress',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLectureLecture extends Schema.CollectionType {
+  collectionName: 'lectures';
+  info: {
+    singularName: 'lecture';
+    pluralName: 'lectures';
+    displayName: 'Lecture';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String & Attribute.Required;
+    video: Attribute.Media<'videos' | 'files'>;
+    isFree: Attribute.Boolean & Attribute.DefaultTo<false>;
+    contentLink: Attribute.String;
+    course: Attribute.Relation<
+      'api::lecture.lecture',
+      'manyToOne',
+      'api::course.course'
+    >;
+    position: Attribute.Integer;
+    classLink: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::lecture.lecture',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::lecture.lecture',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPurchasePurchase extends Schema.CollectionType {
+  collectionName: 'purchases';
+  info: {
+    singularName: 'purchase';
+    pluralName: 'purchases';
+    displayName: 'purchase';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user_id: Attribute.Integer;
+    course_id: Attribute.Integer;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::purchase.purchase',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::purchase.purchase',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -977,10 +977,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::course.course': ApiCourseCourse;
-      'api::course-progress.course-progress': ApiCourseProgressCourseProgress;
-      'api::lecture.lecture': ApiLectureLecture;
-      'api::purchase.purchase': ApiPurchasePurchase;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -989,6 +985,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::course.course': ApiCourseCourse;
+      'api::course-progress.course-progress': ApiCourseProgressCourseProgress;
+      'api::lecture.lecture': ApiLectureLecture;
+      'api::purchase.purchase': ApiPurchasePurchase;
     }
   }
 }

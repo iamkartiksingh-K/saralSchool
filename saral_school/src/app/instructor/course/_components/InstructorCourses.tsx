@@ -147,7 +147,7 @@ export default function InstructorCourse() {
         </Dialog>
       </div>
       <Separator className="my-3" />
-      <div className="flex space-x-3">{allCourses}</div>
+      <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{allCourses}</div>
     </div>
   );
 }

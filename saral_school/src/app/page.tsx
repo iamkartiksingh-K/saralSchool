@@ -6,6 +6,14 @@ import type { courseType } from "@/lib/types";
 import { PublicCourseCard } from "@/components/PublicCourseCard";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
+import Autoplay from "embla-carousel-autoplay"
 
 export default function Home() {
   const { user, setUser } = useContext(UserDataContext);
@@ -55,18 +63,48 @@ export default function Home() {
               ? `Welcome back, ${user.fullName}`
               : "Welcome to SaralSchool"}
           </h1>
-          {/* <Image
-            width={1536}
-            height={400}
-            src={"/wide-bg.jpg"}
-            alt="hero"
-            className="w-full h-96 bg-gray-100 rounded-md object-cover border"
-          /> */}
+          <Carousel
+            plugins={[
+              Autoplay({
+                delay: 4000,
+              }),
+            ]}
+          >
+            <CarouselContent>
+              <CarouselItem>
+                  <Image
+                width={1536}
+                height={400}
+                src={"/banner.jpg"}
+                alt="hero"
+                className="w-full h-96 bg-gray-100 rounded-md object-cover border"
+              />
+              </CarouselItem>
+              <CarouselItem>
+                <Image
+              width={1536}
+              height={400}
+              src={"/banner1.jpg"}
+              alt="hero"
+              className="w-full h-96 bg-gray-100 rounded-md object-cover border"
+            />
+              </CarouselItem>
+              <CarouselItem>
+                  <Image
+                width={1536}
+                height={400}
+                src={"/banner2.jpg"}
+                alt="hero"
+                className="w-full h-96 bg-gray-100 rounded-md object-cover border"
+              />
+              </CarouselItem>
+            </CarouselContent>
+          </Carousel>
         </div>
       </div>
-      <div className="flex flex-col space-y-3">
-        <h2 className="text-xl font-semibold text-gray-800 ">All Courses</h2>
-        <div className="flex space-x-3">{allCourseCards}</div>
+      <div className="flex flex-col space-y-3 mt-8">
+        <h2 className="text-2xl font-semibold text-gray-800 ">All Courses</h2>
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">{allCourseCards}</div>
       </div>
     </main>
   );

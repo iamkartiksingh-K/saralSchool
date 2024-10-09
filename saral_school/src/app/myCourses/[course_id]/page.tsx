@@ -121,8 +121,8 @@ export default function Course() {
     />
   ));
   return (
-    <div className="grid grid-cols-12 h-full">
-      <div className="col-span-2 border">
+    <div className="grid grid-cols-12 grid-rows-4 h-full">
+      <div className="col-span-12 row-span-4 sm:col-span-3 sm:row-span-4 order-last border">
         <div className="mt-2 px-5">
           <Progress value={lecturesCompleted} />
           <p className="font-semibold text-sky-800 text-center mt-2 mb-4">
@@ -133,7 +133,7 @@ export default function Course() {
 
         {allLectures}
       </div>
-      <div className="col-span-10 border flex flex-col items-center">
+      <div className="col-span-12 row-span-2 sm:col-span-9 sm:row-span-4 border flex flex-col items-center">
         <div className="w-[90%] flex flex-col items-end">
           <Button
             className="mt-1 w-fit"
@@ -157,6 +157,7 @@ export default function Course() {
               height={1080}
               logo={false}
               onEnded={completeLecture}
+              className="w-full"
             />
           </div>
         )}

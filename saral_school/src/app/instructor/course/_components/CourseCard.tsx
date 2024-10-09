@@ -82,7 +82,7 @@ export default function CourseCard({ course }: { course: courseType }) {
   };
 
   return (
-    <Card className="w-80 flex flex-col">
+    <Card className="flex flex-col">
       <CardContent className="flex flex-col items-center justify-center p-1 ">
         <Image
           className="rounded-lg w-full h-48 object-cover bg-gray-100"
@@ -101,7 +101,7 @@ export default function CourseCard({ course }: { course: courseType }) {
           </p>
         </div>
       </CardContent>
-      <CardFooter className="flex items-center justify-between mt-9">
+      <CardFooter className="flex items-center justify-between mt-9 space-x-2">
         <Button
           className={!course.publishedAt ? "w-full" : ""}
           variant={"default"}
